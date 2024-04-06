@@ -50,7 +50,7 @@ import com.dot.gallery.feature_node.domain.model.Media
 import com.dot.gallery.feature_node.domain.use_case.MediaHandleUseCase
 import com.dot.gallery.feature_node.presentation.common.components.MediaGridView
 import com.dot.gallery.feature_node.presentation.common.components.TwoLinedDateToolbarTitle
-import com.dot.gallery.feature_node.presentation.search.MainSearchBar
+import com.dot.gallery.feature_node.presentation.topbar.TopBar
 import com.dot.gallery.feature_node.presentation.util.Screen
 import kotlinx.coroutines.flow.StateFlow
 
@@ -154,20 +154,11 @@ fun MediaScreen(
                         scrollBehavior = scrollBehavior
                     )
                 } else {
-                    MainSearchBar(
-                        mediaViewModel = vm,
-                        bottomPadding = paddingValues.calculateBottomPadding(),
-                        navigate = navigate,
-                        toggleNavbar = toggleNavbar,
-                        selectionState = if (selectedMedia.isNotEmpty()) selectionState else null,
-                        isScrolling = isScrolling,
-                        activeState = searchBarActive
-                    ) {
-                        NavigationActions(
-                            actions = navActionsContent,
-                            onActivityResult = onActivityResult
-                        )
-                    }
+                    val gallery = "Gallery"
+                    TopBar(
+                        title = gallery,
+                        navigate = navigate
+                    )
                 }
             }
         ) { it ->
