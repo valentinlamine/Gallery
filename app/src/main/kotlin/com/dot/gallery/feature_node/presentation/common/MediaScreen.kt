@@ -157,7 +157,8 @@ fun MediaScreen(
                     val gallery = "Gallery"
                     TopBar(
                         title = gallery,
-                        navigate = navigate
+                        navigate = navigate,
+                        viewModel = vm
                     )
                 }
             }

@@ -9,14 +9,22 @@ import android.annotation.SuppressLint
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dot.gallery.R
 import com.dot.gallery.core.MediaState
 import com.dot.gallery.core.Resource
+import com.dot.gallery.core.Settings
+import com.dot.gallery.core.presentation.components.FilterOption
 import com.dot.gallery.feature_node.domain.model.Media
 import com.dot.gallery.feature_node.domain.use_case.MediaUseCases
+import com.dot.gallery.feature_node.domain.util.MediaOrder
+import com.dot.gallery.feature_node.domain.util.OrderType
 import com.dot.gallery.feature_node.presentation.util.RepeatOnResume
 import com.dot.gallery.feature_node.presentation.util.collectMedia
 import com.dot.gallery.feature_node.presentation.util.mediaFlow
@@ -195,6 +203,30 @@ open class MediaViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    @Composable
+    fun rememberFiltersTimeline(): SnapshotStateList<FilterOption> {
+        val lastValue by Settings.Album.rememberLastSort()
+        return remember(lastValue) {
+            mutableStateListOf(
+                FilterOption(
+                    titleRes = R.string.filter_recent,
+                    mediaOrder = MediaOrder.Date(OrderType.Descending),
+                    onClick = { updateOrder(it) },
+                    selected = lastValue == 0
+                ),
+                FilterOption(
+                    titleRes = R.string.filter_old,
+                    mediaOrder = MediaOrder.Date(OrderType.Ascending),
+                    onClick = { updateOrder(it) },
+                    selected = lastValue == 1
+                )
+            )
+        }
+    }
+    private fun updateOrder(mediaOrder: MediaOrder) {
+        /*TODO: Implement this method*/
     }
 
 }
