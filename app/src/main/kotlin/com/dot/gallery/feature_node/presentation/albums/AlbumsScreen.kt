@@ -5,6 +5,9 @@
 
 package com.dot.gallery.feature_node.presentation.albums
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,6 +26,10 @@ import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -41,6 +48,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dokar.pinchzoomgrid.PinchZoomGridLayout
@@ -51,7 +59,7 @@ import com.dot.gallery.core.Settings.Album.rememberAlbumGridSize
 import com.dot.gallery.core.Settings.Album.rememberLastSort
 import com.dot.gallery.core.presentation.components.EmptyMedia
 import com.dot.gallery.core.presentation.components.Error
-import com.dot.gallery.core.presentation.components.FilterButton
+import com.dot.gallery.core.presentation.components.FilterRow
 import com.dot.gallery.feature_node.presentation.albums.components.AlbumComponent
 import com.dot.gallery.feature_node.presentation.albums.components.CarouselPinnedAlbums
 import com.dot.gallery.feature_node.presentation.common.MediaViewModel
@@ -73,6 +81,7 @@ fun AlbumsScreen(
     val filterOptions = viewModel.rememberFilters()
     val albumSortSetting by rememberLastSort()
     var lastCellIndex by rememberAlbumGridSize()
+    var showExplanation by remember { mutableStateOf(false) }
 
     val pinchState = rememberPinchZoomGridState(
         cellsList = albumCellsList,
@@ -143,7 +152,7 @@ fun AlbumsScreen(
                 ) {
                     Row(
                         modifier = Modifier
-                            .pinchItem(key = "headerButtons" )
+                            .pinchItem(key = "headerButtons")
                             .fillMaxWidth()
                             .padding(horizontal = 8.dp, vertical = 16.dp),
                         horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -214,10 +223,43 @@ fun AlbumsScreen(
                         span = { GridItemSpan(maxLineSpan) },
                         key = "filterButton"
                     ) {
-                        FilterButton(
+                        FilterRow(
                             modifier = Modifier.pinchItem(key = "filterButton"),
-                            filterOptions = filterOptions.toTypedArray()
+                            filterOptions = filterOptions.toTypedArray(),
+                            showExplanation = showExplanation, // Pass showExplanation as a parameter
+                            onShowExplanationToggle = { showExplanation = !showExplanation } // Callback to handle state changes
                         )
+                    }
+                    item(
+                        span = { GridItemSpan(maxLineSpan) },
+                        key = "AlbumCreationHelper"
+                    ) {
+                        AnimatedVisibility(
+                            visible = showExplanation
+                        ) {
+                            Card(
+                                modifier = Modifier
+                                    .pinchItem(key = "AlbumCreationHelper")
+                                    .padding(horizontal = 8.dp)
+                                    .padding(bottom = 16.dp),
+                                shape = MaterialTheme.shapes.medium,
+                                elevation = CardDefaults.cardElevation(),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                                )
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(16.dp)
+                                ) {
+                                    Text(
+                                        text = stringResource(R.string.create_album_explanation),
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                }
+                            }
+
+                        }
                     }
                 }
                 items(

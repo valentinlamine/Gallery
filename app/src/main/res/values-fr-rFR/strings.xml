@@ -160,6 +160,7 @@
     <string name="remove_from_ignored">Supprimer de la liste d\'albums ignorés</string>
     <string name="remove_from_ignored_summary">Retirer l\'album nommé %1$s des albums ignorés</string>
     <string name="favorite">Favorite</string>
+    <string name="create_album_explanation">To create a new album, go to the Timeline screen and select the media you want to add to the album. Then click the \'Move\' button and select \'New album\'.</string>
     <plurals name="item_count">
         <item quantity="one">%s élément</item>
         <item quantity="other">%s éléments</item>
