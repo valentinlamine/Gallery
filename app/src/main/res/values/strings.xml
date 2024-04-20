@@ -180,6 +180,7 @@
     <string name="permission_manage_files_summary">"    • Allows the app to create, modify, and delete files and albums that were previously restricted by the system. (Includes albums outside Pictures and DCIM folders and the ones from the SD Card"</string>
     <string name="allow_to_manage_files">Allow to Manage All Files</string>
     <string name="nav_search">Search</string>
+    <string name="create_album_explanation">To create a new album, go to the Timeline screen and select the media you want to add to the album. Then click the \'Move\' button and select \'New album\'.</string>
     <plurals name="item_count">
         <item quantity="one">%s item</item>
         <item quantity="other">%s items</item>

@@ -160,6 +160,7 @@
     <string name="remove_from_ignored">取消隱藏</string>
     <string name="remove_from_ignored_summary">取消隱藏相簿 %1$s</string>
     <string name="favorite">收藏</string>
+    <string name="create_album_explanation">To create a new album, go to the Timeline screen and select the media you want to add to the album. Then click the \'Move\' button and select \'New album\'.</string>
     <plurals name="item_count">
         <item quantity="other">%s 個項目</item>
     </plurals>

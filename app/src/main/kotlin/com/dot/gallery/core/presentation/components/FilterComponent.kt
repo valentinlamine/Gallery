@@ -9,13 +9,20 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.ArrowDropDown
+import androidx.compose.material.icons.outlined.ArrowDropUp
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.FilterList
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -33,13 +40,44 @@ import com.dot.gallery.feature_node.domain.util.MediaOrder
 import com.dot.gallery.feature_node.domain.util.OrderType
 
 @Composable
-fun FilterButton(
+fun FilterRow(
     modifier: Modifier = Modifier,
-    filterOptions: Array<FilterOption> = emptyArray()
+    filterOptions: Array<FilterOption> = emptyArray(),
+    showExplanation: Boolean, // Accept showExplanation as a parameter
+    onShowExplanationToggle: () -> Unit // Callback to handle state changes
 ) {
     var lastSort by rememberLastSort()
     var expanded by remember { mutableStateOf(false) }
     var selectedFilter by remember(lastSort) { mutableStateOf(filterOptions.first { it.selected }.titleRes) }
+
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .wrapContentSize(Alignment.TopStart)
+            .padding(horizontal = 8.dp),
+    ) {
+        TextButton(onClick = { onShowExplanationToggle() }) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    modifier = Modifier.padding(end = 4.dp),
+                    text = stringResource(R.string.create_new_album)
+                )
+                if (showExplanation) {
+                    Icon(
+                        imageVector = Icons.Outlined.ArrowDropUp,
+                        contentDescription = stringResource(R.string.drop_down_cd)
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Outlined.ArrowDropDown,
+                        contentDescription = stringResource(R.string.drop_down_cd)
+                    )
+                }
+            }
+        }
+    }
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -88,8 +126,10 @@ fun FilterButton(
             }
         }
     }
-}
+    if (showExplanation) {
 
+    }
+}
 
 data class FilterOption(
     val titleRes: Int = -1,
