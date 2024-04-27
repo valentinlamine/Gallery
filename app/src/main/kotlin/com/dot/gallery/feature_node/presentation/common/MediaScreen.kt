@@ -154,13 +154,16 @@ fun MediaScreen(
                         scrollBehavior = scrollBehavior
                     )
                 } else {
-                    val gallery = "Gallery"
-                    TopBar(
-                        title = gallery,
-                        navigate = navigate,
-                        viewModel = vm,
-                        isScrolling = isScrolling
-                    )
+                    AnimatedVisibility(
+                        visible = !isScrolling.value,
+                        enter = enterAnimation,
+                        exit = exitAnimation
+                    )  {
+                        TopBar(
+                            navigate = navigate,
+                            viewModel = vm
+                        )
+                    }
                 }
             }
         ) { it ->
