@@ -158,7 +158,8 @@ fun MediaScreen(
                     TopBar(
                         title = gallery,
                         navigate = navigate,
-                        viewModel = vm
+                        viewModel = vm,
+                        isScrolling = isScrolling
                     )
                 }
             }

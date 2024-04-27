@@ -3,6 +3,7 @@ package com.dot.gallery.feature_node.presentation.topbar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -19,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,7 +39,8 @@ import com.dot.gallery.feature_node.presentation.util.Screen
 fun TopBar(
     title: String,
     navigate: (route: String) -> Unit,
-    viewModel: MediaViewModel
+    viewModel: MediaViewModel,
+    isScrolling: MutableState<Boolean>
 ) {
     var expandedDropdown by remember { mutableStateOf(false) }
     val filterOptions = viewModel.rememberFiltersTimeline()
@@ -47,15 +50,14 @@ fun TopBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(100.dp)
-            .background(color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp))
-            .padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            .padding(top = if (isScrolling.value) 0.dp else 48.dp) // Adjust padding based on scrolling
+            .padding(horizontal = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
 
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.displayMedium,
+            style = MaterialTheme.typography.headlineLarge,
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.weight(1f)
         )
@@ -65,7 +67,7 @@ fun TopBar(
             IconButton(onClick = { expandedDropdown = !expandedDropdown }) {
                 Icon(
                     imageVector = Icons.Filled.SwapVert,
-                    contentDescription = "Back",
+                    contentDescription = "Sort",
                     modifier = Modifier.size(28.dp)
                 )
             }
@@ -94,6 +96,7 @@ fun TopBar(
                     )
                 }
             }
+            Spacer(modifier = Modifier.size(8.dp))
             Icon(
                 imageVector = Icons.Filled.Settings,
                 contentDescription = "Settings",
@@ -106,8 +109,3 @@ fun TopBar(
         }
     }
 }
-
-
-
-
-
