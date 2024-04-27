@@ -37,6 +37,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -64,6 +65,7 @@ import com.dot.gallery.feature_node.presentation.albums.components.AlbumComponen
 import com.dot.gallery.feature_node.presentation.albums.components.CarouselPinnedAlbums
 import com.dot.gallery.feature_node.presentation.common.MediaViewModel
 import com.dot.gallery.feature_node.presentation.search.MainSearchBar
+import com.dot.gallery.feature_node.presentation.topbar.TopBar
 import com.dot.gallery.feature_node.presentation.util.Screen
 
 @Composable
@@ -99,34 +101,7 @@ fun AlbumsScreen(
 
     Scaffold(
         topBar = {
-            MainSearchBar(
-                mediaViewModel = mediaViewModel,
-                bottomPadding = paddingValues.calculateBottomPadding(),
-                navigate = navigate,
-                toggleNavbar = toggleNavbar,
-                isScrolling = isScrolling,
-                activeState = searchBarActive
-            ) {
-                var expandedDropdown by remember { mutableStateOf(false) }
-                IconButton(onClick = { expandedDropdown = !expandedDropdown }) {
-                    Icon(
-                        imageVector = Icons.Outlined.MoreVert,
-                        contentDescription = stringResource(R.string.drop_down_cd)
-                    )
-                }
-                DropdownMenu(
-                    expanded = expandedDropdown,
-                    onDismissRequest = { expandedDropdown = false }
-                ) {
-                    DropdownMenuItem(
-                        text = { Text(text = stringResource(id = R.string.settings_title)) },
-                        onClick = {
-                            expandedDropdown = false
-                            navigate(Screen.SettingsScreen.route)
-                        }
-                    )
-                }
-            }
+            TopBar(navigate = navigate, viewModel = mediaViewModel)
         }
     ) {
         PinchZoomGridLayout(state = pinchState) {
