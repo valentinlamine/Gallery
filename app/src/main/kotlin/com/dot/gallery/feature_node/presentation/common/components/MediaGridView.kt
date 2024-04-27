@@ -239,7 +239,7 @@ fun PinchZoomGridScope.MediaGridView(
             }
         }
     }
-
+    /*
     if (enableStickyHeaders) {
         /**
          * Remember last known header item
@@ -318,6 +318,7 @@ fun PinchZoomGridScope.MediaGridView(
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier
+                            //.background(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp))
                             .background(
                                 Brush.verticalGradient(
                                     listOf(
@@ -337,6 +338,6 @@ fun PinchZoomGridScope.MediaGridView(
             }
         ) { mediaGrid() }
     } else mediaGrid()
-
-
+    */
+    mediaGrid()
 }
