@@ -81,44 +81,12 @@ fun SearchScreen(
             ),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            /*item(
-                key = "SearchBar"
-            ) {
-                MainSearchBar(
-                    mediaViewModel = mediaViewModel,
-                    bottomPadding = paddingValues.calculateBottomPadding(),
-                    navigate = navigate,
-                    toggleNavbar = toggleNavbar,
-                    isScrolling = isScrolling,
-                    activeState = searchBarActive
-                ) {
-                    var expandedDropdown by remember { mutableStateOf(false) }
-                    IconButton(onClick = { expandedDropdown = !expandedDropdown }) {
-                        Icon(
-                            imageVector = Icons.Outlined.MoreVert,
-                            contentDescription = stringResource(R.string.drop_down_cd)
-                        )
-                    }
-                    DropdownMenu(
-                        expanded = expandedDropdown,
-                        onDismissRequest = { expandedDropdown = false }
-                    ) {
-                        DropdownMenuItem(
-                            text = { Text(text = stringResource(id = R.string.settings_title)) },
-                            onClick = {
-                                expandedDropdown = false
-                                navigate(Screen.SettingsScreen.route)
-                            }
-                        )
-                    }
-                }
-            }
-             */
+
             item(
                 key = "SearchScreenItem"
             ) {
                 Text(
-                    text = "Search Screen",
+                    text = "Search Screen oral",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(top = 16.dp)
                 )
