@@ -108,7 +108,7 @@ fun SettingsScreen(
                 .fillMaxSize(),
             contentPadding = padding
         ) {
-            item { SettingsAppHeader() }
+            //item { SettingsAppHeader() }
             items(
                 items = settingsList,
                 key = { it.title + it.type.toString() }
